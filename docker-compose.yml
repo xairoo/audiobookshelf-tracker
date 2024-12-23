@@ -1,7 +1,6 @@
 services:
   server:
     container_name: server
-    image: ghcr.io/xairoo/audiobookshelf-tracker-server:latest 
     build:
       context: .
       dockerfile: ./server/Dockerfile
@@ -22,7 +21,6 @@ services:
 
   client:
     container_name: client
-    image: ghcr.io/xairoo/audiobookshelf-tracker-client:latest 
     build:
       context: .
       dockerfile: ./client/Dockerfile
