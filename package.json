@@ -1,0 +1,29 @@
+{
+  "name": "audiobookshelf-tracker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "start": "turbo run start"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "packageManager": "npm@10.3.0",
+  "workspaces": [
+    "server",
+    "client",
+    "packages/*"
+  ]
+}
