@@ -5,7 +5,7 @@ AudiobookShelf Tracker is a self-hosted web application to track the listening h
 The application records the:
 
 - Listening progress
-- Author (or podcast name)
+- Author or podcast name
 - Title
 
 With this tracker you can easily keep track of the audiobooks and podcast episodes they have listened to, avoiding duplicates and making it simpler to safely delete completed items without the fear of forgetting them or accidentally re-downloading or replaying them.
