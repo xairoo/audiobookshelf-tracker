@@ -1,8 +1,14 @@
 # Audiobookshelf Tracker
 
-AudiobookShelf Tracker is a Node.js application designed to help users track their listening history from Audiobookshelf. The application records key information such as listening progress, the author (or podcast name), and the title of the media consumed.
+AudiobookShelf Tracker is a self-hosted web application to track the listening history from [Audiobookshelf](https://github.com/advplyr/audiobookshelf).
 
-With this tracker, users can easily keep track of the audiobooks and podcast episodes they've listened to, avoiding duplicates and making it simpler to safely delete completed items without the fear of forgetting them or accidentally re-downloading or replaying them.
+The application records the:
+
+- Listening progress
+- Author (or podcast name)
+- Title
+
+With this tracker you can easily keep track of the audiobooks and podcast episodes they have listened to, avoiding duplicates and making it simpler to safely delete completed items without the fear of forgetting them or accidentally re-downloading or replaying them.
 
 AudiobookShelf Tracker ensures a well-organized and efficient history management of your personal audio libraries.
 
