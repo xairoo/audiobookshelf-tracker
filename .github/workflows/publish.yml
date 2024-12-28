@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "README.md"
 
 jobs:
   publish-docker-images:
@@ -30,6 +32,3 @@ jobs:
           docker tag audiobookshelf-tracker-client ghcr.io/${{ github.repository_owner }}/audiobookshelf-tracker-client:latest
           docker push ghcr.io/${{ github.repository_owner }}/audiobookshelf-tracker-server:latest
           docker push ghcr.io/${{ github.repository_owner }}/audiobookshelf-tracker-client:latest
-
-
-
