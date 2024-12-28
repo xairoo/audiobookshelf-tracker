@@ -95,10 +95,10 @@ npm ci
 docker network create audiobookshelf_tracker
 
 # Build prod using new BuildKit engine
-docker-compose -f docker-compose-dev.yml build
+docker compose -f docker-compose-dev.yml build
 
 # Start the containers
-docker-compose -f docker-compose-dev.yml up
+docker compose -f docker-compose-dev.yml up
 ```
 
 Open http://localhost:3000.
