@@ -136,6 +136,8 @@ export function insertMedia({
 
         query += ` LIMIT 1`;
 
+        logger.info(`(media) ${author} - ${title}`);
+
         // Get current item from db
         await new Promise(async (resolve, reject) => {
           db.get(query, params, (err, row) => {

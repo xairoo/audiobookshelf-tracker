@@ -18,10 +18,10 @@ export async function initializeSocket({ userId, username, token }) {
     }
 
     socket = io(process.env.ABS_URL);
-    logger.info(`Initializing socket (${username})`);
+    logger.info(`(socket) (${username}) Initializing`);
 
     socket.on("connect", () => {
-      logger.info(`Socket connected (${username})`);
+      logger.info(`(socket) (${username}) Connected`);
       isConnected = true;
 
       if (token) {
@@ -30,12 +30,14 @@ export async function initializeSocket({ userId, username, token }) {
         socket.emit("auth", token);
       }
     });
+
     socket.on("disconnect", () => {
-      logger.info(`Socket disconnected (${username})`);
+      logger.info(`(socket) (${username}) Disconnected`);
       isConnected = false;
     });
-    socket.on("connect_error", () => {
-      logger.error(`Socket connection error (${username})`);
+
+    socket.on("connect_error", (err) => {
+      logger.error(`(socket) (${username}) Connection error: ${err.message}`);
       isConnected = false;
     });
 
@@ -92,7 +94,9 @@ export async function initializeSocket({ userId, username, token }) {
 }
 
 async function waitForConnection(waits = 0) {
-  if (isConnected) return true;
+  if (isConnected) {
+    return true;
+  }
   if (!isConnected && waits > 10) {
     logger.error("Waited too long");
     return false;

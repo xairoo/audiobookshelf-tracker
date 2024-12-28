@@ -7,6 +7,26 @@ import { initializeSocket } from "./lib/socket.io-client.mjs";
 const podcastTitles = [];
 const allSessions = [];
 
+async function checkApi() {
+  try {
+    await got(process.env.ABS_URL);
+    logger.info(`(ABS) API online`);
+    return true;
+  } catch (error) {
+    logger.error(`(ABS) API offline`);
+    return false;
+  }
+}
+
+async function waitForApi() {
+  if (await checkApi()) {
+    return true;
+  } else {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  return waitForApi();
+}
+
 // Get all sessions in case we missed something
 async function fetchAllSessions() {
   const itemsPerPage = 100;
@@ -95,42 +115,50 @@ async function fetchAllSessions() {
 }
 
 // Get all users
-try {
-  const { users } = await got
-    .get(new URL("api/users", process.env.ABS_URL), {
-      headers: {
-        Authorization: `Bearer ${process.env.ABS_TOKEN}`,
-      },
-    })
-    .json();
+async function getUsers() {
+  try {
+    const { users } = await got
+      .get(new URL("api/users", process.env.ABS_URL), {
+        headers: {
+          Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+        },
+      })
+      .json();
 
-  // Insert or update users
-  for (const user of users) {
-    try {
-      const id = await new Promise((resolve, reject) => {
-        db.run(
-          `INSERT OR REPLACE INTO users (id, username) VALUES (?,?)`,
-          [user.id, user.username],
-          function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
+    // Insert or update users
+    for (const user of users) {
+      try {
+        const id = await new Promise((resolve, reject) => {
+          db.run(
+            `INSERT OR REPLACE INTO users (id, username) VALUES (?,?)`,
+            [user.id, user.username],
+            function (err) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve();
+              }
             }
-          }
-        );
-      });
-    } catch (err) {
-      logger.error(err);
+          );
+        });
+      } catch (err) {
+        logger.error(err);
+      }
     }
+    logger.info("Insert or update users done");
+  } catch (err) {
+    logger.error(err);
   }
-  logger.info("Insert or update users done");
-} catch (err) {
-  logger.error(err);
 }
 
-// Get all sessions
 (async () => {
+  // ABS API online?
+  await waitForApi();
+
+  // Get all users
+  await getUsers();
+
+  // Get all sessions
   const sessions = await fetchAllSessions();
 
   for (const session of sessions) {
@@ -230,7 +258,7 @@ try {
         token: user.token,
       });
       if (!success) {
-        logger.error(`Socket failed (${user.username})`);
+        logger.error(`(socket) failed to connect (${user.username})`);
       }
     }
   } catch (err) {
