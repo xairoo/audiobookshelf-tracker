@@ -25,7 +25,7 @@ router.get(
     try {
       const items = await new Promise((resolve, reject) => {
         db.all(
-          `SELECT * FROM items WHERE userId = ? AND progress > 0 ORDER BY updatedAt DESC`,
+          `SELECT * FROM items WHERE userId = ? AND progress > 0.025 ORDER BY updatedAt DESC`,
           [req.params.userId],
           async (err, rows) => {
             return resolve(rows);
