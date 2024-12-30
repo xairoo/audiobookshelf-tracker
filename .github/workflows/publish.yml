@@ -1,11 +1,12 @@
 name: Build and push Docker images
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths-ignore:
-#       - "README.md"
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #   paths-ignore:
+  #     - "README.md"
 
 jobs:
   publish-docker-images:
