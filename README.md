@@ -1,6 +1,6 @@
 # Audiobookshelf Tracker
 
-AudiobookShelf Tracker is a self-hosted web application to track the listening history from [Audiobookshelf](https://github.com/advplyr/audiobookshelf).
+Audiobookshelf Tracker is a self-hosted web application to track the listening history from [Audiobookshelf](https://github.com/advplyr/audiobookshelf).
 
 The application records the:
 
@@ -10,7 +10,11 @@ The application records the:
 
 With this tracker you can easily keep track of the audiobooks and podcast episodes they have listened to, avoiding duplicates and making it simpler to safely delete completed items without the fear of forgetting them or accidentally re-downloading or replaying them.
 
-AudiobookShelf Tracker ensures a well-organized and efficient history management of your personal audio libraries.
+Audiobookshelf Tracker ensures a well-organized and efficient history management of your personal audio libraries.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/74f2483b-b7b1-4056-bacc-41deae1cbc3f" alt="History">
+</p>
 
 ## Install
 
