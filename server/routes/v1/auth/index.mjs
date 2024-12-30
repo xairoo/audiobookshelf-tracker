@@ -2,7 +2,6 @@ import express from "express";
 const router = express.Router();
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
-import { db, logger } from "../../../lib/index.mjs";
 
 const authTokenLifetime = 3600;
 const refreshTokenLifetime = 3600 * 24 * 7;
@@ -22,7 +21,7 @@ const body_schema = Joi.object({
 router.post("/login", validateBody(body_schema), async function (req, res) {
   const { body } = req;
 
-  const username = "admin";
+  const username = process.env.USERNAME;
   const password = process.env.PASSWORD;
 
   if (body.username !== username) {

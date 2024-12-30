@@ -6,7 +6,13 @@ dotenv.config();
 // Set console title
 process.title = process.env.npm_package_name;
 
-const requiredConfigVars = ["PASSWORD", "JWT_SECRET", "ABS_URL", "ABS_TOKEN"];
+const requiredConfigVars = [
+  "USERNAME",
+  "PASSWORD",
+  "JWT_SECRET",
+  "ABS_URL",
+  "ABS_TOKEN",
+];
 
 // // All required options set?
 let hasMissingOptions = false;

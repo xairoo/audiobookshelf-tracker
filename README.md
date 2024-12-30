@@ -38,7 +38,8 @@ services:
     environment:
       - CLIENT_PORT=3000
       - SERVER_PORT=3005
-      - PASSWORD= # admin password, change this
+      - USERNAME= # username for the tracker
+      - PASSWORD= # admin password for the tracker
       - JWT_SECRET= # random salt, change this
       - ABS_URL= # Audiobookshelf server, e.g.: http://192.168.0.129:13378
       - ABS_TOKEN= # Your Audiobookshelf admin token (Settings -> Users -> root account -> API token)
@@ -72,7 +73,7 @@ Start the containers
 docker compose -f docker-compose.yml up -d
 ```
 
-Now you can login at http://localhost:3000 with the user `admin` and the password you have set.
+Now you can login at http://localhost:3000 with the username and password based on `USERNAME` and `PASSWORD`.
 
 Enjoy!
 
