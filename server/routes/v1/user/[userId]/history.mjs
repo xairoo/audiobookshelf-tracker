@@ -2,25 +2,22 @@ import express from "express";
 const router = express.Router();
 import { db, logger } from "../../../../lib/index.mjs";
 
-/**
- * Validation
- */
+// Validation
 import Joi from "joi";
-import {
-  validateBody,
-  validateParams,
-} from "../../../../middleware/validation.mjs";
-
-const body_schema = Joi.object({});
+import { validateParams } from "../../../../middleware/validation.mjs";
 
 const params_schema = Joi.object({
   userId: Joi.string().guid({ version: "uuidv4" }).required(),
 });
 
+// Auth
+import { requireAuth } from "../../../../middleware/auth.mjs";
+
 // Get items
 router.get(
   "/:userId/history",
   validateParams(params_schema),
+  requireAuth,
   async (req, res) => {
     try {
       const items = await new Promise((resolve, reject) => {

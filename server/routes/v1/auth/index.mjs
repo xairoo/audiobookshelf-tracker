@@ -2,13 +2,9 @@ import express from "express";
 const router = express.Router();
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
+import { config } from "../../../lib/index.mjs";
 
-const authTokenLifetime = 3600;
-const refreshTokenLifetime = 3600 * 24 * 7;
-
-/**
- * Validation
- */
+// Validation
 import Joi from "joi";
 import { validateBody } from "../../../middleware/validation.mjs";
 
@@ -21,23 +17,22 @@ const body_schema = Joi.object({
 router.post("/login", validateBody(body_schema), async function (req, res) {
   const { body } = req;
 
-  const username = process.env.USERNAME;
-  const password = process.env.PASSWORD;
-
-  if (body.username !== username) {
+  if (body.username !== config.USERNAME) {
     return res.status(401).json({});
   }
 
-  if (body.password !== password) {
+  if (body.password !== config.PASSWORD) {
     return res.status(401).json({});
   }
 
-  const authTokenExp = Math.floor(Date.now() / 1000) + authTokenLifetime;
-  const refreshTokenExp = Math.floor(Date.now() / 1000) + refreshTokenLifetime;
+  const authTokenExp =
+    Math.floor(Date.now() / 1000) + config.JWT_AUTH_TOKEN_LIFETIME;
+  const refreshTokenExp =
+    Math.floor(Date.now() / 1000) + config.JWT_REFRESH_TOKEN_LIFETIME;
 
   const authToken = jwt.sign(
     { exp: authTokenExp, username: body.username },
-    process.env.JWT_SECRET
+    config.JWT_SECRET
   );
 
   const refreshToken = jwt.sign(
@@ -46,14 +41,14 @@ router.post("/login", validateBody(body_schema), async function (req, res) {
       refresh_token: uuidv4(),
       username: body.username,
     },
-    process.env.JWT_SECRET
+    config.JWT_SECRET
   );
 
   res.setHeader("Access-Control-Expose-Headers", "Authorization");
   res.setHeader("Authorization", "Bearer " + authToken);
   res.cookie("refresh_token", refreshToken, {
     path: "/",
-    maxAge: refreshTokenLifetime * 1000,
+    maxAge: config.JWT_REFRESH_TOKEN_LIFETIME * 1000,
     httpOnly: true, // You can't access these tokens in the client's javascript
     sameSite: "Lax",
     secure: process.env.NODE_ENV === "production" ? true : false, // Forces to use https in production
@@ -76,18 +71,16 @@ router.get("/refresh", async function (req, res) {
   }
 
   try {
-    const decoded = jwt.verify(
-      req.cookies.refresh_token,
-      process.env.JWT_SECRET
-    );
+    const decoded = jwt.verify(req.cookies.refresh_token, config.JWT_SECRET);
 
-    const authTokenExp = Math.floor(Date.now() / 1000) + authTokenLifetime;
+    const authTokenExp =
+      Math.floor(Date.now() / 1000) + config.JWT_AUTH_TOKEN_LIFETIME;
     const refreshTokenExp =
-      Math.floor(Date.now() / 1000) + refreshTokenLifetime;
+      Math.floor(Date.now() / 1000) + config.JWT_REFRESH_TOKEN_LIFETIME;
 
     const authToken = jwt.sign(
       { exp: authTokenExp, username: decoded.username },
-      process.env.JWT_SECRET
+      config.JWT_SECRET
     );
 
     const refreshToken = jwt.sign(
@@ -96,14 +89,14 @@ router.get("/refresh", async function (req, res) {
         refresh_token: uuidv4(),
         username: decoded.username,
       },
-      process.env.JWT_SECRET
+      config.JWT_SECRET
     );
 
     res.setHeader("Access-Control-Expose-Headers", "Authorization");
     res.setHeader("Authorization", "Bearer " + authToken);
     res.cookie("refresh_token", refreshToken, {
       path: "/",
-      maxAge: refreshTokenLifetime * 1000,
+      maxAge: config.JWT_REFRESH_TOKEN_LIFETIME * 1000,
       httpOnly: true, // You can't access these tokens in the client's javascript
       sameSite: "Lax",
       secure: process.env.NODE_ENV === "production" ? true : false, // Forces to use https in production

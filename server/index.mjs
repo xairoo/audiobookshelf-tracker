@@ -1,7 +1,6 @@
-import { db, logger } from "./lib/index.mjs";
-import { insertMedia } from "./lib/media.mjs";
 import got from "got";
-
+import { config, db, logger } from "./lib/index.mjs";
+import { insertMedia } from "./lib/media.mjs";
 import { initializeSocket } from "./lib/socket.io-client.mjs";
 
 const podcastTitles = [];
@@ -9,7 +8,7 @@ const allSessions = [];
 
 async function checkApi() {
   try {
-    await got(process.env.ABS_URL);
+    await got(config.ABS_URL);
     logger.info(`(ABS) API online`);
     return true;
   } catch (error) {
@@ -33,13 +32,13 @@ async function fetchAllSessions() {
 
   try {
     for await (const pageData of got.paginate(
-      `${process.env.ABS_URL}/api/sessions`,
+      `${config.ABS_URL}/api/sessions`,
       {
         searchParams: {
           itemsPerPage: itemsPerPage,
         },
         headers: {
-          Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+          Authorization: `Bearer ${config.ABS_TOKEN}`,
         },
         responseType: "json",
         pagination: {
@@ -118,9 +117,9 @@ async function fetchAllSessions() {
 async function getUsers() {
   try {
     const { users } = await got
-      .get(new URL("api/users", process.env.ABS_URL), {
+      .get(new URL("api/users", config.ABS_URL), {
         headers: {
-          Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+          Authorization: `Bearer ${config.ABS_TOKEN}`,
         },
       })
       .json();
@@ -181,10 +180,10 @@ async function getUsers() {
         author = podcastTitle;
       } else {
         const res = await got.get(
-          new URL(`api/items/${session.libraryItemId}`, process.env.ABS_URL),
+          new URL(`api/items/${session.libraryItemId}`, config.ABS_URL),
           {
             headers: {
-              Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+              Authorization: `Bearer ${config.ABS_TOKEN}`,
             },
             responseType: "json",
             throwHttpErrors: false,
@@ -220,9 +219,9 @@ async function getUsers() {
 
   try {
     const { users } = await got
-      .get(new URL("api/users", process.env.ABS_URL), {
+      .get(new URL("api/users", config.ABS_URL), {
         headers: {
-          Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+          Authorization: `Bearer ${config.ABS_TOKEN}`,
         },
       })
       .json();
@@ -230,9 +229,9 @@ async function getUsers() {
     // Insert or update all entries of mediaProgress
     for (const user of users) {
       const userObj = await got
-        .get(new URL(`api/users/${user.id}`, process.env.ABS_URL), {
+        .get(new URL(`api/users/${user.id}`, config.ABS_URL), {
           headers: {
-            Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+            Authorization: `Bearer ${config.ABS_TOKEN}`,
           },
         })
         .json();

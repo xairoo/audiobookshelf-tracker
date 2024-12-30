@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { logger } from "./index.mjs";
+import { config, logger } from "./index.mjs";
 import { insertMedia } from "./media.mjs";
 
 export let socket = null;
@@ -7,7 +7,7 @@ let isConnected = false;
 
 export async function initializeSocket({ userId, username, token }) {
   try {
-    if (!process.env.ABS_URL) {
+    if (!config.ABS_URL) {
       logger.error(`Missing ENV ABS_URL`);
       return;
     }
@@ -17,7 +17,7 @@ export async function initializeSocket({ userId, username, token }) {
       return;
     }
 
-    socket = io(process.env.ABS_URL);
+    socket = io(config.ABS_URL);
     logger.info(`(socket) (${username}) Initializing`);
 
     socket.on("connect", () => {

@@ -1,10 +1,10 @@
 import { Server } from "socket.io";
-import { server, logger } from "./index.mjs";
+import { config, server, logger } from "./index.mjs";
 
 // Start socket.io server
 export const io = new Server(server, {
   cors: {
-    origin: `http://localhost:${process.env.CLIENT_PORT || 3000}`,
+    origin: `http://localhost:${config.CLIENT_PORT}`,
     methods: ["GET", "POST"],
   },
 });

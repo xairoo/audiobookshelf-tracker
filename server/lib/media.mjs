@@ -1,14 +1,14 @@
 import got from "got";
-import { logger, db } from "./index.mjs";
+import { config, logger, db } from "./index.mjs";
 
 const podcastAuthors = [];
 
 async function getItem(libraryItemId) {
   const res = await got.get(
-    new URL(`api/items/${libraryItemId}`, process.env.ABS_URL),
+    new URL(`api/items/${libraryItemId}`, config.ABS_URL),
     {
       headers: {
-        Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+        Authorization: `Bearer ${config.ABS_TOKEN}`,
       },
       responseType: "json",
       throwHttpErrors: false,
@@ -52,10 +52,10 @@ export function insertMedia({
 
           if (!author) {
             const res = await got.get(
-              new URL(`api/items/${libraryItemId}`, process.env.ABS_URL),
+              new URL(`api/items/${libraryItemId}`, config.ABS_URL),
               {
                 headers: {
-                  Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+                  Authorization: `Bearer ${config.ABS_TOKEN}`,
                 },
                 responseType: "json",
                 throwHttpErrors: false,
@@ -79,9 +79,9 @@ export function insertMedia({
       try {
         if (!title || !author) {
           //
-          const res = await got.get(new URL(url, process.env.ABS_URL), {
+          const res = await got.get(new URL(url, config.ABS_URL), {
             headers: {
-              Authorization: `Bearer ${process.env.ABS_TOKEN}`,
+              Authorization: `Bearer ${config.ABS_TOKEN}`,
             },
             responseType: "json",
             throwHttpErrors: false,

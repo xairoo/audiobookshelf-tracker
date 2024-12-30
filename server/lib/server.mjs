@@ -1,4 +1,4 @@
-import { logger } from "./index.mjs";
+import { config, logger } from "./index.mjs";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -30,9 +30,7 @@ app.use(cookieParser());
 // Apply all routes
 routes(app);
 
-const port = process.env.SERVER_PORT || 3005;
-
 // Finally start the server
-export const server = app.listen(port, () => {
-  logger.info(`API is up and listening on port ${port}`);
+export const server = app.listen(config.SERVER_PORT, () => {
+  logger.info(`API is up and listening on port ${config.SERVER_PORT}`);
 });
