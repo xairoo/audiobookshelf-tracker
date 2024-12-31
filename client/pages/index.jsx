@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useSession } from "next-auth-static-site";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
-import Protected from "../components/protected";
+import Protected from "../components/Protected";
 
 export default function Home() {
   const { status, data: session, token } = useSession();

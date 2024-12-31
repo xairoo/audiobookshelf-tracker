@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import fetcher from "../../utils/fetcher";
-import Protected from "../../components/protected";
+import Protected from "../../components/Protected";
 import styled from "@emotion/styled";
 
 const UserWrapper = styled.div`
@@ -216,7 +216,6 @@ export default function Home() {
             })}
           </Select>
         </UserWrapper>
-
         <SearchWrapper>
           <Search
             onChange={handleSearch}
@@ -248,15 +247,22 @@ export default function Home() {
                 } else {
                   return item.progress > 0;
                 }
-                // return item.progress === 1;
               })
               .map((item) => {
+                const array = [
+                  item.author,
+                  item.podcastTitle,
+                  item.title,
+                  item.subtitle,
+                ];
+
                 return (
                   <Entry key={`${item.itemId}-${item.episodeId}`}>
                     <Meta>
                       <Title>
-                        {item.author || item.podcastTitle} - {item.title}{" "}
-                        {item.subtitle && `- ${item.subtitle}`}
+                        {array
+                          .filter((item) => item != null && item !== "")
+                          .join(" - ")}
                       </Title>
                       <ProgressValue>
                         {parseFloat((item.progress * 100).toFixed(0))}%
