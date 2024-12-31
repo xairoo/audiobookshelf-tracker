@@ -27,7 +27,7 @@ async function getItem(libraryItemId) {
 
 export function insertMedia({
   userId,
-  lastUpdate,
+  updatedAt,
   type,
   libraryItemId,
   episodeId,
@@ -119,7 +119,7 @@ export function insertMedia({
           title ? title : null,
           subtitle ? subtitle : null,
           progress ? progress : null,
-          new Date().toISOString(), // Use the current date and not the one from audiobookshelf
+          new Date(updatedAt).toISOString(), // Use the current date and not the one from audiobookshelf
           userId,
           libraryItemId, //res.body.id,
         ];
@@ -147,7 +147,7 @@ export function insertMedia({
             } else {
               // Insert new item
               db.run(
-                `INSERT INTO items (userId, itemId, episodeId, type, author, title, subtitle,progress, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO items (userId, itemId, episodeId, type, author, title, subtitle, progress, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 [
                   userId,
                   libraryItemId,
@@ -157,7 +157,7 @@ export function insertMedia({
                   title,
                   subtitle,
                   progress,
-                  new Date().toISOString(), // Use the current date and not the one from audiobookshelf
+                  new Date(updatedAt).toISOString(), // Use the current date and not the one from audiobookshelf
                 ],
                 function (err) {
                   if (err) {

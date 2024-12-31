@@ -60,7 +60,7 @@ export async function initializeSocket({ userId, username, token }) {
 
             insertMedia({
               userId: media?.userId,
-              lastUpdate: media?.lastUpdate,
+              updatedAt: media?.lastUpdate,
               type: media?.mediaItemType,
               libraryItemId: media?.libraryItemId,
               episodeId: media?.episodeId,
@@ -75,7 +75,7 @@ export async function initializeSocket({ userId, username, token }) {
         if (eventName === "user_item_progress_updated") {
           insertMedia({
             userId: args.data?.userId,
-            lastUpdate: args.data?.lastUpdate,
+            updatedAt: args.data?.lastUpdate,
             type: args.data?.mediaItemType,
             libraryItemId: args.data?.libraryItemId,
             episodeId: args.data?.episodeId,

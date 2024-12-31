@@ -206,7 +206,7 @@ async function getUsers() {
     await insertMedia({
       id: session?.libraryItemId,
       userId: session?.userId,
-      lastUpdate: session?.lastUpdate,
+      updatedAt: session?.updatedAt,
       type: session?.type,
       libraryItemId: session?.libraryItemId,
       episodeId: session?.episodeId,
@@ -239,7 +239,7 @@ async function getUsers() {
       for (const media of userObj?.mediaProgress) {
         await insertMedia({
           userId: media?.userId,
-          lastUpdate: media?.lastUpdate,
+          updatedAt: media?.lastUpdate,
           type: media?.mediaItemType,
           libraryItemId: media?.libraryItemId,
           episodeId: media?.episodeId,
