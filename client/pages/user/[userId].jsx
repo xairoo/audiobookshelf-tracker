@@ -38,31 +38,10 @@ const SearchWrapper = styled.div`
   margin: 1rem 0;
 `;
 
-const Search = styled.input`
-  height: 20px;
-  width: 100%;
-  background: transparent;
-  border: 2px solid #37095f;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  padding: 0.25rem 0.5rem;
-  box-shadow: none;
-  color: #fff;
-  ::placeholder {
-    color: #8a8a8a;
-  }
-  :focus {
-    outline: none;
-    outline-offset: 0;
-    border: 2px solid #7627c0;
-  }
-`;
-
 const SearchIconWrapper = styled.div`
-  background: #380568;
   position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
+  right: 0.5rem;
+  top: 0.5rem;
   bottom: 0.25rem;
   display: flex;
   height: 1.5rem;
@@ -73,8 +52,8 @@ const SearchIconWrapper = styled.div`
 `;
 
 const SearchIcon = styled.svg`
-  height: 1rem;
-  width: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
 `;
 
 const Entry = styled.div`
@@ -216,8 +195,9 @@ export default function Home() {
             })}
           </Select>
         </UserWrapper>
+
         <SearchWrapper>
-          <Search
+          <input
             onChange={handleSearch}
             value={search}
             placeholder="Author, Title, ..."
@@ -232,6 +212,7 @@ export default function Home() {
             </SearchIcon>
           </SearchIconWrapper>
         </SearchWrapper>
+
         <div>
           {!errorHistory &&
             history &&

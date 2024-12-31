@@ -1,13 +1,16 @@
 import { SessionProvider } from "next-auth-static-site";
+import { GlobalStyles } from "../lib/styles";
 import Header from "../components/Header";
-import "./styles.css";
 
 const App = ({ Component, pageProps: { ...pageProps } }) => {
   return (
-    <SessionProvider>
-      <Header />
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      {GlobalStyles}
+      <SessionProvider>
+        <Header />
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 };
 

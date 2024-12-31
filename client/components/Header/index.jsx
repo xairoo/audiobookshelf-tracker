@@ -3,7 +3,6 @@ import AuthInfo from "./AuthInfo";
 import styled from "@emotion/styled";
 
 const Content = styled.div`
-  padding: 15px 0;
   display: flex;
   justify-content: space-between;
   gap: 10px;

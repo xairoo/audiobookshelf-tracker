@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useLogin } from "next-auth-static-site";
-import styles from "./login.module.css";
+import styled from "@emotion/styled";
+
+const Input = styled.input`
+  margin: 0.5rem 0;
+`;
+
+const Button = styled.button`
+  margin: 0.5rem 0;
+`;
 
 export default function Login() {
   const router = useRouter();
@@ -51,32 +59,22 @@ export default function Login() {
     <div>
       <h1>Login</h1>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div>
-          <label className={styles.label}>
-            <div className={styles.name}>Username:</div>
-            <input
-              className={styles.input}
-              type="text"
-              name="username"
-              onChange={handleUsername}
-              value={username}
-            />
-          </label>
-        </div>
-        <div>
-          <label className={styles.label}>
-            <div className={styles.name}>Password:</div>
-            <input
-              className={styles.input}
-              type="password"
-              name="password"
-              onChange={handlePassword}
-              value={password}
-            />
-          </label>
-        </div>
-        <input type="submit" value="Submit" />
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="username"
+          onChange={handleUsername}
+          value={username}
+          placeholder="Username"
+        />
+        <Input
+          type="password"
+          name="password"
+          onChange={handlePassword}
+          value={password}
+          placeholder="Password"
+        />
+        <Button>Login</Button>
         <div>{status}</div>
       </form>
     </div>
