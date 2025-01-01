@@ -13,7 +13,7 @@ With this tracker you can easily keep track of the audiobooks and podcast episod
 Audiobookshelf Tracker ensures a well-organized and efficient history management of your personal audio libraries.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1d960200-0fcf-495d-9ebc-cccc2035d12c" width="375" alt="History">
+  <img src="https://github.com/user-attachments/assets/be1c5f53-d331-4a7c-868b-2c070d38931c" width="375" alt="History">
 </p>
 
 ## Install

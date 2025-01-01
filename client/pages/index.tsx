@@ -5,7 +5,7 @@ import fetcher from "../utils/fetcher";
 import Protected from "../components/Protected";
 
 export default function Home() {
-  const { status, data: session, token } = useSession();
+  const { status, token } = useSession();
 
   // Fetch some external data if authenticated
   const { data: users, error } = useSWR(

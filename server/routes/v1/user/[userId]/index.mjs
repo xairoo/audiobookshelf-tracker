@@ -6,7 +6,7 @@ import { db, logger } from "../../../../lib/index.mjs";
 import Joi from "joi";
 import { validateParams } from "../../../../middleware/validation.mjs";
 
-const params_schema = Joi.object({
+const paramsSchema = Joi.object({
   userId: Joi.string().guid({ version: "uuidv4" }),
 });
 
@@ -16,7 +16,7 @@ import { requireAuth } from "../../../../middleware/auth.mjs";
 // Get users
 router.get(
   "/:userId",
-  validateParams(params_schema),
+  validateParams(paramsSchema),
   requireAuth,
   async (req, res) => {
     try {

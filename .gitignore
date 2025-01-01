@@ -35,6 +35,8 @@ yarn-error.log*
 # turbo
 .turbo
 
+tsconfig.tsbuildinfo
+
 .env
 !.env-sample
 

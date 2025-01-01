@@ -8,10 +8,10 @@
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
     "test": "turbo run test",
     "start": "turbo run start"
   },
-  "dependencies": {},
   "devDependencies": {
     "prettier": "^3.2.5",
     "turbo": "^2.3.3"

@@ -8,13 +8,13 @@ import { config } from "../../../lib/index.mjs";
 import Joi from "joi";
 import { validateBody } from "../../../middleware/validation.mjs";
 
-const body_schema = Joi.object({
+const bodySchema = Joi.object({
   username: Joi.string().min(2).required(),
   password: Joi.string().min(8).required(),
 });
 
 // Login route
-router.post("/login", validateBody(body_schema), async function (req, res) {
+router.post("/login", validateBody(bodySchema), async function (req, res) {
   const { body } = req;
 
   if (body.username !== config.USERNAME) {

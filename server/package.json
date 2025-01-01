@@ -1,9 +1,8 @@
 {
   "name": "server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
-    "check-types": "tsc --noEmit",
     "dev": "npm run env && NODE_ENV=development && nodemon --watch ./ ./index.mjs",
     "env": "cp ../.env .env",
     "start": "NODE_ENV=production && node ./index.mjs",

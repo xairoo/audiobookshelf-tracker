@@ -1,6 +1,10 @@
-const path = require("path");
+/** @type {import('next').NextConfig} */
 
-module.exports = {
+import path from "path";
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   experimental: {
@@ -20,3 +24,5 @@ module.exports = {
     ];
   },
 };
+
+export default nextConfig;

@@ -15,9 +15,8 @@
       "outputs": ["coverage/**"],
       "dependsOn": []
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
+    "check-types": {},
+    "lint": {},
     "dev": {
       "cache": false,
       "persistent": true

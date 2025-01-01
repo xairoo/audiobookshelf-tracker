@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useSession, loginUrl } from "next-auth-static-site";
 
 export default function AuthInfo() {
-  const { status, data: session } = useSession();
+  const { status } = useSession();
 
   if (status === "unauthenticated") {
     return (
