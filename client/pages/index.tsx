@@ -1,14 +1,17 @@
-import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth-static-site";
+import Link from "next/link";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
 import Protected from "../components/Protected";
 
 export default function Home() {
   const { status, token } = useSession();
+  const router = useRouter();
 
   // Fetch some external data if authenticated
-  const { data: users, error } = useSWR(
+  const { data: users } = useSWR(
     token && status === "authenticated"
       ? {
           url: `/api/v1/users`,
@@ -22,16 +25,15 @@ export default function Home() {
     }
   );
 
-  if (status === "loading") {
-    return null; // Display nothing or...
+  // Route to the first user
+  useEffect(() => {
+    if (status === "authenticated" && users && users[0] && users[0].id) {
+      router.push(`/user/${users[0].id}`);
+    }
+  }, [status, users]);
 
-    // Display loading state
-    return (
-      <>
-        <h1>Users</h1>
-        <div>Loading...</div>
-      </>
-    );
+  if (status === "loading") {
+    return null;
   }
 
   if (status === "unauthenticated") {
@@ -44,28 +46,6 @@ export default function Home() {
   }
 
   if (status === "authenticated") {
-    return (
-      <>
-        <h1>Users</h1>
-
-        <div>
-          <ul>
-            {!error &&
-              users &&
-              users
-                .filter((user) => {
-                  return user.id;
-                })
-                .map((user) => {
-                  return (
-                    <li key={user.id}>
-                      <Link href={`/user/${user.id}`}>{user.username}</Link>
-                    </li>
-                  );
-                })}
-          </ul>
-        </div>
-      </>
-    );
+    return null;
   }
 }
