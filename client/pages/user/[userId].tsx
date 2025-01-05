@@ -135,7 +135,7 @@ const ProgressBar = styled.div<ProgressBar>`
   border-radius: 0.5rem;
 `;
 
-export default function Home() {
+export default function Page() {
   const { status, token } = useSession();
   const router = useRouter();
   const { userId } = router.query;
@@ -235,11 +235,7 @@ export default function Home() {
                 <ListboxButton>
                   {selectedUser.username} <CaretDownIcon color="#fff" />
                 </ListboxButton>
-                <ListboxOptions
-                  //
-                  // anchor="bottom start"
-                  anchor={{ to: "bottom start", gap: "4px" }}
-                >
+                <ListboxOptions anchor={{ to: "bottom start", gap: "4px" }}>
                   {users?.map((user) => {
                     return (
                       <ListboxOption key={user.id} value={user}>
@@ -264,7 +260,7 @@ export default function Home() {
             title="Custom Item"
           >
             <AddItem
-              resHistory={(history) => {
+              onHistoryUpdate={(history) => {
                 setHistory(history);
               }}
             />

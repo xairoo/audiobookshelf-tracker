@@ -58,9 +58,9 @@ const SwitchIcon = styled.span`
 `;
 
 export default function AddItem({
-  resHistory,
+  onHistoryUpdate,
 }: {
-  resHistory: (body: History[]) => void;
+  onHistoryUpdate: (body: History[]) => void;
 }) {
   const { status, token } = useSession();
   const router = useRouter();
@@ -98,8 +98,8 @@ export default function AddItem({
         setIsFinished(true);
 
         // Return the new history to the parent component
-        if (typeof resHistory === "function") {
-          resHistory(body);
+        if (typeof onHistoryUpdate === "function") {
+          onHistoryUpdate(body);
         }
       } else {
         setError(body.error);
